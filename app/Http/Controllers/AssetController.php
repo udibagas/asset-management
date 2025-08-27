@@ -12,10 +12,29 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $assets = Asset::paginate(10);
-        return view('asset.index', ['assets' => $assets]);
+        $categories = Category::all();
+        $locations = Location::all();
+
+        $assets = Asset::with(['category', 'location'])
+            ->when($request->search, function ($query, $search) {
+                $query->where('name', 'ilike', "%$search%")
+                    ->orWhereHas('category', function ($q) use ($search) {
+                        $q->where('name', 'ilike', "%$search%");
+                    })
+                    ->orWhereHas('location', function ($q) use ($search) {
+                        $q->where('name', 'ilike', "%$search%");
+                    });
+            })
+            ->when($request->category_id, function ($query, $value) {
+                return $query->where('category_id', $value);
+            })
+            ->when($request->location_id, function ($query, $value) {
+                return $query->where('location_id', $value);
+            })
+            ->paginate(10);
+        return view('asset.index', compact('assets', 'categories', 'locations'));
     }
 
     /**

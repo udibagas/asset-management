@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
 use App\Models\Asset;
-use App\Models\Category;
-use App\Models\Location;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 // Route::method(path, handler);
 
@@ -15,14 +13,22 @@ use Illuminate\Support\Facades\Route;
 // handler = Closure (callback), Class, [Controller::class, 'method']
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/asset');
 });
 
-// Route::get('/asset', [AssetController::class, 'index']);
-// Route::post('/asset', [AssetController::class, 'store']);
-// Route::get('/asset/create', [AssetController::class, 'create']);
-// Route::get('/asset/{id}/edit', [AssetController::class, 'edit']);
-// Route::put('/asset/{id}', [AssetController::class, 'update']);
-// Route::delete('/asset/{id}', [AssetController::class, 'destroy']);
+// Route::resource('asset', AssetController::class);
+// Route::resource('location', LocationController::class);
+// Route::resource('category', CategoryController::class);
 
-Route::resource('asset', AssetController::class);
+Route::resources([
+    'asset' => AssetController::class,
+    'location' => LocationController::class,
+    'category' => CategoryController::class
+]);
+
+Route::get('test', function () {
+    // return 'Test route';
+    // return ['message' => 'Test route'];
+    // return response()->json(['message' => 'Test route']);
+    return Asset::all();
+});

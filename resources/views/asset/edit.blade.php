@@ -11,16 +11,7 @@
 </head>
 
 <body>
-    <div class="navbar bg-base-100 shadow-sm">
-        <div class="flex-none">
-            <a class="btn btn-ghost text-xl">Asset Management Laravel</a>
-        </div>
-        <div class="flex-1">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="/asset">Asset List</a></li>
-            </ul>
-        </div>
-    </div>
+    @include('_partial._navbar')
 
     <div class="container mx-auto my-8">
         <h1 class="text-3xl font-bold mb-8">Edit Asset</h1>

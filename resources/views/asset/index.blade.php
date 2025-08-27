@@ -12,30 +12,39 @@
 
 <body>
 
-    <div class="navbar bg-base-100 shadow-sm">
-        <div class="flex-none">
-            <a class="btn btn-ghost text-xl">Asset Management Laravel</a>
-        </div>
-        <div class="flex-1">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="/asset">Asset List</a></li>
-            </ul>
-        </div>
-    </div>
+    @include('_partial._navbar')
 
     <div class="container mx-auto my-8">
         <h1 class="text-3xl font-bold mb-8">Asset Management</h1>
 
-        <form class="flex gap-4 items-center">
-            <input type="text" class="input" name="search" placeholder="Search assets...">
-            <a href="/asset/create" class="btn btn-primary mb-4">Create New Asset</a>
+        <form class="flex gap-4 items-center justify-between mb-8">
+            <div class="flex gap-4">
+                <input type="text" class="input w-[180px]" name="search" placeholder="Search assets...">
+                <select id="category" name="category_id" class="input">
+                    <option value="">Select Category</option>
+                    <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <select id="location" name="location_id" class="input">
+                    <option value="">Select Location</option>
+                    <?php foreach ($locations as $location): ?>
+                    <option value="<?= $location->id ?>"><?= $location->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="btn btn-primary" type="submit">Filter</button>
+                <a href="/asset" class="btn btn-primary btn-outline" type="reset">Reset</a>
+            </div>
+
+            <a href="/asset/create" class="btn btn-primary">Create New Asset</a>
         </form>
 
 
         <!-- List assets -->
 
         <div class="overflow-x-auto mb-8">
-            <table class="table">
+            <table class="table table-sm">
                 <!-- head -->
                 <thead>
                     <tr>
@@ -51,19 +60,28 @@
                     <!-- row 1 -->
                     <?php foreach ($assets as $index => $asset) { ?>
                     <tr>
-                        <th><?= $index + 1 ?></th>
-                        <td><?= $asset->name ?></td>
-                        <td><?= $asset->value ?></td>
-                        <td><?= $asset->category ?></td>
-                        <td><?= $asset->location ?></td>
-                        <td class="flex gap-2">
+                        <td><?= $index + 1 ?></td>
+                        <td class="font-bold"><?= $asset->name ?></td>
+                        <td class="w-[200px]">
+                            <div class="badge badge-soft badge-primary">
+                                <?= $asset->valueInRupiah ?>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="badge badge-outline badge-info badge-sm">
+                                <?= $asset->category->name ?>
+                            </div>
+                        </td>
+                        <td><?= $asset->location->name ?></td>
+                        <td class="flex gap-2 w-[80px]">
+                            <a href="/asset/<?= $asset->id ?>/edit" class="btn btn-warning btn-sm">Edit</a>
+
                             <form action="/asset/<?= $asset->id ?>" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-error">Delete</button>
+                                <button type="submit" class="btn btn-error btn-sm">Delete</button>
                             </form>
 
-                            <a href="/asset/<?= $asset->id ?>/edit" class="btn btn-warning">Edit</a>
                         </td>
                     </tr>
                     <?php } ?>
