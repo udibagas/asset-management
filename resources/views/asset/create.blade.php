@@ -15,7 +15,7 @@
         </div>
     @endif --}}
 
-    <form action="/asset" method="POST" class="space-y-4">
+    <form action="/asset" method="POST" class="space-y-4" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col space-y-4">
             <label for="name" class="block text-sm font-medium @error('name') text-error @enderror">Name</label>
@@ -27,6 +27,7 @@
                 @enderror
             </div>
         </div>
+
         <div class="flex flex-col space-y-4">
             <label for="value" class="block text-sm font-medium @error('value') text-error @enderror">Value</label>
             <div>
@@ -37,6 +38,7 @@
                 @enderror
             </div>
         </div>
+
         <div class="flex flex-col space-y-4">
             <label for="category"
                 class="block text-sm font-medium @error('category_id') text-error @enderror">Category</label>
@@ -53,6 +55,7 @@
                 @enderror
             </div>
         </div>
+
         <div class="flex flex-col space-y-4">
             <label for="location"
                 class="block text-sm font-medium @error('location_id') text-error @enderror">Location</label>
@@ -69,6 +72,19 @@
                 @enderror
             </div>
         </div>
+
+        <div class="flex flex-col space-y-4">
+            <label for="image" class="block text-sm font-medium @error('image') text-error @enderror">Image</label>
+            <div>
+                <input type="file" id="image" name="image"
+                    class="file-input @error('image') input-error @enderror" value="{{ old('image') }}">
+                @error('image')
+                    <div class="text-error mt-2">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Create Asset</button>
     </form>
 @endsection

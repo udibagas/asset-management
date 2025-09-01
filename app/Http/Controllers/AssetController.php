@@ -59,7 +59,10 @@ class AssetController extends Controller
      */
     public function store(AssetRequest $request)
     {
-        Asset::create($request->validated());
+        $path = $request->file('image')->store('images');
+        $input = $request->validated();
+        $input['image'] = $path;
+        Asset::create($input);
         return redirect('/asset');
     }
 

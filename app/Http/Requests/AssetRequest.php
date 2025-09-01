@@ -26,6 +26,7 @@ class AssetRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'location_id' => 'required|exists:locations,id',
             'value' => 'required|integer|min:1000000',
+            'image' => 'nullable|image|max:2048', // max 2MB
         ];
     }
 

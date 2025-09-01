@@ -16,6 +16,7 @@ class Asset extends Model
         'category_id',
         'location_id',
         'value',
+        'image',
     ];
 
     public function category()
