@@ -7,20 +7,20 @@
 
     <div class="flex gap-4 items-center mb-8">
         <form class="flex flex-1 gap-4">
-            <input type="text" class="input" name="search" placeholder="Cari Asset..." value="<?= $request->search ?>">
+            <input type="text" class="input" name="search" placeholder="Cari Asset..." value="{{ $request->search }}">
             <select id="category" name="category_id" class="select">
                 <option value="">-- Pilih Kategori --</option>
-                <?php foreach ($categories as $category): ?>
-                <option value="<?= $category->id ?>" <?= $request->category_id == $category->id ? 'selected' : '' ?>>
-                    <?= $category->name ?></option>
-                <?php endforeach; ?>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ $request->category_id == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}</option>
+                @endforeach
             </select>
 
             <select id="location" name="location_id" class="select">
                 <option value="">-- Pilih Lokasi --</option>
                 <?php foreach ($locations as $location): ?>
-                <option value="<?= $location->id ?>" <?= $request->location_id == $location->id ? 'selected' : '' ?>>
-                    <?= $location->name ?></option>
+                <option value="{{ $location->id }}" {{ $request->location_id == $location->id ? 'selected' : '' }}>
+                    {{ $location->name }}</option>
                 <?php endforeach; ?>
             </select>
             <button class="btn btn-primary" type="submit">Filter</button>
@@ -32,7 +32,6 @@
 
 
     <!-- List assets -->
-
     <div class="overflow-x-auto mb-8">
         <table class="table table-sm table-zebra">
             <!-- head -->
@@ -51,7 +50,8 @@
                 @foreach ($assets as $index => $asset)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td class="font-bold">{{ $asset->name }}</td>
+                        <td class="font-bold">
+                            {{ $asset->name }}</td>
                         <td>
                             <div class="badge badge-soft badge-primary">
                                 {{ $asset->valueInRupiah }}

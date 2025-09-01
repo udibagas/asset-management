@@ -19,18 +19,18 @@
             <label for="category" class="block text-sm font-medium">Category</label>
             <select id="category" name="category_id" class="select" required>
                 <option value="">Select Category</option>
-                <?php foreach ($categories as $category): ?>
-                <option value="<?= $category->id ?>"><?= $category->name ?></option>
-                <?php endforeach; ?>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="flex flex-col space-y-4">
             <label for="location" class="block text-sm font-medium">Location</label>
             <select id="location" name="location_id" class="select" required>
                 <option value="">Select Location</option>
-                <?php foreach ($locations as $location): ?>
-                <option value="<?= $location->id ?>"><?= $location->name ?></option>
-                <?php endforeach; ?>
+                @foreach ($locations as $location)
+                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Create Asset</button>

@@ -21,23 +21,23 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($locations as $index => $location) { ?>
-                <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= $location->name ?></td>
-                    <td><?= $location->assets->count() ?></td>
-                    <td class="flex gap-2 justify-end">
-                        <a href="/location/<?= $location->id ?>/edit" class="btn btn-warning btn-sm">Edit</a>
+                @foreach ($locations as $index => $location)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $location->name }}</td>
+                        <td>{{ $location->assets->count() }}</td>
+                        <td class="flex gap-2 justify-end">
+                            <a href="/location/{{ $location->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
 
-                        <form action="/location/<?= $location->id ?>" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-error btn-sm">Delete</button>
-                        </form>
+                            <form action="/location/{{ $location->id }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                            </form>
 
-                    </td>
-                </tr>
-                <?php } ?>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

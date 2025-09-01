@@ -21,23 +21,23 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categories as $index => $category) { ?>
-                <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= $category->name ?></td>
-                    <td><?= $category->assets->count() ?></td>
-                    <td class="flex gap-2 justify-end">
-                        <a href="/category/<?= $category->id ?>/edit" class="btn btn-warning btn-sm">Edit</a>
+                @foreach ($categories as $index => $category)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->assets->count() }}</td>
+                        <td class="flex gap-2 justify-end">
+                            <a href="/category/{{ $category->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
 
-                        <form action="/category/<?= $category->id ?>" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-error btn-sm">Delete</button>
-                        </form>
+                            <form action="/category/{{ $category->id }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                            </form>
 
-                    </td>
-                </tr>
-                <?php } ?>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
