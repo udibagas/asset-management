@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssetRequest;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Location;
@@ -16,6 +17,8 @@ class AssetController extends Controller
     {
         $categories = Category::all();
         $locations = Location::all();
+
+        $sum = Asset::withTrashed()->sum('value');
 
         $assets = Asset::with(['category', 'location'])
             ->when($request->search, function ($query, $search) {
@@ -33,9 +36,11 @@ class AssetController extends Controller
             ->when($request->location_id, function ($query, $value) {
                 return $query->where('location_id', $value);
             })
+            ->orderBy('name')
+            ->withTrashed()
             ->paginate(10)->withQueryString();
 
-        return view('asset.index', compact('assets', 'categories', 'locations', 'request'));
+        return view('asset.index', compact('assets', 'categories', 'locations', 'request', 'sum'));
     }
 
     /**
@@ -52,9 +57,9 @@ class AssetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AssetRequest $request)
     {
-        Asset::create($request->all());
+        Asset::create($request->validated());
         return redirect('/asset');
     }
 
@@ -81,9 +86,9 @@ class AssetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AssetRequest $request, Asset $asset)
     {
-        Asset::find($id)->update($request->all());
+        $asset->update($request->validated());
         return redirect('/asset');
     }
 
@@ -93,6 +98,18 @@ class AssetController extends Controller
     public function destroy(Asset $asset)
     {
         $asset->delete();
+        return redirect('/asset');
+    }
+
+    public function forceDestroy(Asset $asset)
+    {
+        $asset->forceDelete();
+        return redirect('/asset');
+    }
+
+    public function restore(Asset $asset)
+    {
+        $asset->restore();
         return redirect('/asset');
     }
 }

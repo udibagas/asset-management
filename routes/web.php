@@ -26,6 +26,9 @@ Route::resources([
     'category' => CategoryController::class
 ]);
 
+Route::delete('asset/{asset}/force', [AssetController::class, 'forceDestroy'])->withTrashed();
+Route::post('asset/{asset}/restore', [AssetController::class, 'restore'])->withTrashed();
+
 Route::get('test', function () {
     // return 'Test route';
     // return ['message' => 'Test route'];

@@ -5,6 +5,10 @@
 @section('content')
     <h1 class="text-3xl font-bold mb-8">Kelola Aset</h1>
 
+    <div class="mb-8 border border-gray-300 shadow rounded-2xl p-8">
+        <h2 class="text-xl font-bold">Total Nilai Aset: Rp. {{ number_format($sum, 0, ',', '.') }}</h2>
+    </div>
+
     <div class="flex gap-4 items-center mb-8">
         <form class="flex flex-1 gap-4">
             <input type="text" class="input" name="search" placeholder="Cari Asset..." value="{{ $request->search }}">
@@ -50,8 +54,9 @@
                 @foreach ($assets as $index => $asset)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td class="font-bold">
-                            {{ $asset->name }}</td>
+                        <td class="font-bold @if ($asset->trashed()) line-through text-error @endif">
+                            {{ $asset->name }}
+                        </td>
                         <td>
                             <div class="badge badge-soft badge-primary">
                                 {{ $asset->valueInRupiah }}
@@ -67,12 +72,24 @@
                             <a href="/asset/{{ $asset->id }}/edit" class="btn btn-warning btn-sm btn-soft">Edit</a>
 
                             <form action="/asset/{{ $asset->id }}" method="POST"
-                                onsubmit="return confirm('Anda yakin akan menghapus data ini?')">
+                                onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-error btn-sm btn-soft">Hapus</button>
                             </form>
 
+                            <form action="/asset/{{ $asset->id }}/force" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-error btn-sm btn-soft">Hapus Permanen</button>
+                            </form>
+
+                            <form action="/asset/{{ $asset->id }}/restore" method="POST"
+                                onsubmit="return confirm('Yakin ingin mengembalikan aset ini?')">
+                                @csrf
+                                <button type="submit" class="btn btn-warning btn-sm btn-soft">Kembalikan</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

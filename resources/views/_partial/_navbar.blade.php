@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100 shadow-sm">
     <div class="flex-none">
-        <a class="btn btn-ghost text-xl">Asset Management Laravel</a>
+        <a class="btn btn-ghost text-xl">Asset Management System</a>
     </div>
     <div class="flex-1">
         <ul class="menu menu-horizontal px-1">
