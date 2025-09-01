@@ -33,8 +33,9 @@ class AssetController extends Controller
             ->when($request->location_id, function ($query, $value) {
                 return $query->where('location_id', $value);
             })
-            ->paginate(10);
-        return view('asset.index', compact('assets', 'categories', 'locations'));
+            ->paginate(10)->withQueryString();
+
+        return view('asset.index', compact('assets', 'categories', 'locations', 'request'));
     }
 
     /**
