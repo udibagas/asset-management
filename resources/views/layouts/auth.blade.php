@@ -9,17 +9,10 @@
 </head>
 
 <body>
-
-    @include('_partial._navbar')
-
-    <div class="">
-        <div class="container mx-auto py-8">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-96 border border-gray-200 shadow p-8 rounded-2xl">
             @yield('content')
         </div>
-    </div>
-
-    <div class="bg-blue-800 text-white">
-        <x-footer></x-footer>
     </div>
 </body>
 

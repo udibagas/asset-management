@@ -71,7 +71,7 @@ class AssetController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return "TODO";
     }
 
     /**
