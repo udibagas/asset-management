@@ -28,9 +28,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:admin,editor')->group(function () {
-        Route::resource('post', PostController::class);
+        Route::resource('post', PostController::class)->except(['show']);
     });
 
     Route::delete('asset/{asset}/force', [AssetController::class, 'forceDestroy'])->withTrashed();
     Route::post('asset/{asset}/restore', [AssetController::class, 'restore'])->withTrashed();
 });
+
+Route::get('asset/{asset}', [AssetController::class, 'show']);

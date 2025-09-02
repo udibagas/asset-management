@@ -69,9 +69,11 @@ class AssetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Asset $asset)
     {
-        return "TODO";
+        return view('asset.show', [
+            'asset' => $asset->load(['category', 'location'])
+        ]);
     }
 
     /**

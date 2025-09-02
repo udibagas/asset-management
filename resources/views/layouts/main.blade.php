@@ -12,7 +12,7 @@
 
     @include('_partial._navbar')
 
-    <div class="">
+    <div class="my-8">
         <div class="container mx-auto py-8">
             @yield('content')
         </div>
