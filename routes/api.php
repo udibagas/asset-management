@@ -39,4 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'category' => CategoryController::class,
         ]);
     });
+
+    Route::get('/asset', [AssetController::class, 'index']);
+    Route::get('/category', [CategoryController::class, 'index']);
+    Route::get('/location', [LocationController::class, 'index']);
 });
