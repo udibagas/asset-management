@@ -1,4 +1,4 @@
-<div class="card bg-base-100 w-80 shadow-sm">
+<div class="dark w-80 shadow-sm">
     <figure>
         <a href="/asset/{{ $asset->id }}">
             @if ($asset->image)

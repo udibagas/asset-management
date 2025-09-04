@@ -33,16 +33,18 @@ Selasa:
 
 Rabu:
 
+-   Integration with vue
+
 -   Mail
 -   Notification
 -   Queue
 -   Scheduler (Job)
--   Integration with vue
+
+-   Deploy
 
 Senin:
 
 -   Testing
--   Deploy
 -   Docker
 
 Selasa:

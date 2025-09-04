@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Location')
 
@@ -11,7 +11,7 @@
     </form>
 
     <div class="overflow-x-auto mb-8">
-        <table class="table table-sm table-zebra">
+        <table class="table table-zebra">
             <thead class="bg-gray-100">
                 <tr>
                     <th>#</th>
@@ -27,12 +27,12 @@
                         <td>{{ $location->name }}</td>
                         <td>{{ $location->assets->count() }}</td>
                         <td class="flex gap-2 justify-end">
-                            <a href="/location/{{ $location->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/location/{{ $location->id }}/edit" class="btn btn-warning btn-sm btn-outline">Edit</a>
 
                             <form action="/location/{{ $location->id }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-error btn-sm btn-outline">Delete</button>
                             </form>
 
                         </td>

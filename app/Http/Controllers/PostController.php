@@ -6,7 +6,6 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
@@ -16,7 +15,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with('user')->paginate();
+        $posts = Post::with('user')->paginate(10);
         return view('posts.index', compact('posts'));
     }
 

@@ -1,4 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.admin')
+
+@section('title', 'Create Category')
 
 @section('content')
     <div class="container mx-auto my-8">

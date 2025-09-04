@@ -17,6 +17,10 @@ class IsAdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->role !== 'admin') {
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Forbidden'], 403);
+            }
+
             abort(403);
         }
 

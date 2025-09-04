@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Post Management')
 
@@ -11,7 +11,7 @@
     </form>
 
     <div class="overflow-x-auto mb-8">
-        <table class="table table-sm table-zebra">
+        <table class="table table-zebra">
             <thead class="bg-gray-100">
                 <tr>
                     <th>#</th>
@@ -28,14 +28,14 @@
                         <td>{{ $post->user->name }}</td>
                         <td class="flex gap-2 justify-end">
                             @can('update', $post)
-                                <a href="/post/{{ $post->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="/post/{{ $post->id }}/edit" class="btn btn-warning btn-sm btn-outline">Edit</a>
                             @endcan
 
                             @can('delete', $post)
                                 <form action="/post/{{ $post->id }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-error btn-sm btn-outline">Delete</button>
                                 </form>
                             @endcan
                         </td>

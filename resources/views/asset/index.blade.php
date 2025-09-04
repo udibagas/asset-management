@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Kelola Aset')
 
@@ -37,14 +37,14 @@
 
     <!-- List assets -->
     <div class="overflow-x-auto mb-8">
-        <table class="table table-sm table-zebra">
+        <table class="table table-zebra">
             <!-- head -->
             <thead class="bg-gray-100">
                 <tr>
                     <th>#</th>
                     <th>Gambar</th>
                     <th>Nama Aset</th>
-                    <th>Nilai</th>
+                    <th class="text-right">Nilai</th>
                     <th>Kategori</th>
                     <th>Lokasi</th>
                     <th></th>
@@ -65,7 +65,7 @@
                             {{ $asset->name }}
                         </td>
                         <td>
-                            <div class="badge badge-soft badge-primary">
+                            <div class="text-green-400 text-right">
                                 {{ $asset->valueInRupiah }}
                             </div>
                         </td>
@@ -76,27 +76,30 @@
                         </td>
                         <td>{{ $asset->location->name }}</td>
                         <td class="flex gap-2 justify-end">
-                            <a href="/asset/{{ $asset->id }}/edit" class="btn btn-warning btn-sm btn-soft">Edit</a>
+                            @if (!$asset->trashed())
+                                <a href="/asset/{{ $asset->id }}/edit"
+                                    class="btn btn-warning btn-sm btn-outline">Edit</a>
 
-                            <form action="/asset/{{ $asset->id }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-error btn-sm btn-soft">Hapus</button>
-                            </form>
+                                <form action="/asset/{{ $asset->id }}" method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-error btn-sm btn-outline">Hapus</button>
+                                </form>
+                            @endif
 
-                            @if ($asset->deleted_at)
+                            @if ($asset->trashed())
                                 <form action="/asset/{{ $asset->id }}/force" method="POST"
                                     onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-error btn-sm btn-soft">Hapus Permanen</button>
+                                    <button type="submit" class="btn btn-error btn-sm btn-outline">Hapus Permanen</button>
                                 </form>
 
                                 <form action="/asset/{{ $asset->id }}/restore" method="POST"
                                     onsubmit="return confirm('Yakin ingin mengembalikan aset ini?')">
                                     @csrf
-                                    <button type="submit" class="btn btn-warning btn-sm btn-soft">Kembalikan</button>
+                                    <button type="submit" class="btn btn-warning btn-sm btn-outline">Kembalikan</button>
                                 </form>
                             @endif
                         </td>

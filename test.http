@@ -1,0 +1,91 @@
+### Get All Assets
+GET http://localhost:8000/api/asset
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 14|9LKQHycshaAYInhQRJdVai0S2VoWuc9NJkcDF1aS011df83c
+
+### Get single asset
+GET http://localhost:8000/api/asset/62
+Accept: application/json
+Content-Type: application/json
+
+### Create New Asset
+POST http://localhost:8000/api/asset
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "New Asset 1",
+    "value": 1000000,
+    "category_id": 1,
+    "location_id": 1
+}
+
+### Update Asset
+PATCH  http://localhost:8000/api/asset/62
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "New Asset 1 - Edited",
+    "value": 88888888,
+    "category_id": 1,
+    "location_id": 1
+}
+
+### Delete asset
+DELETE  http://localhost:8000/api/asset/62
+Accept: application/json
+Content-Type: application/json
+
+### Get All Location
+GET http://localhost:8000/api/location
+Accept: application/json
+Content-Type: application/json
+
+
+### Get One Location
+GET http://localhost:8000/api/location/11
+Accept: application/json
+Content-Type: application/json
+
+### Delete One Location
+DELETE http://localhost:8000/api/location/1
+Accept: application/json
+Content-Type: application/json
+
+### Create token (user)
+POST http://localhost:8000/api/tokens/create
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "florence.lindgren@example.org",
+    "password": "password"
+}
+
+### Create token (admin)
+POST http://localhost:8000/api/tokens/create
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "bagas@mail.com",
+    "password": "rahasia123"
+}
+
+
+### Get current user info
+GET http://localhost:8000/api/profile
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 11|rAc7oHmEhz6oIV1nEwwkWUP1WP2oTsBVbFHvDCpRf40322ca
+
+### Revoke token
+DELETE http://localhost:8000/api/token
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 11|rAc7oHmEhz6oIV1nEwwkWUP1WP2oTsBVbFHvDCpRf40322ca
+
+
+
