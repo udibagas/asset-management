@@ -25,7 +25,7 @@ Route::post('/tokens/create', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/profile', function (Request $request) {
-        return $request->user();
+        return $request->user(); // current authenticated user
     });
 
     Route::delete('/token', function (Request $request) {

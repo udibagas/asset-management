@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserRegistered;
 use App\Models\User;
+use App\Notifications\UserRegisteredNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -54,7 +57,18 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create($validated);
-        return redirect('/login');
+        $user =  User::create($validated);
+        Auth::login($user); // login user after registered
+
+        // send email
+        // Mail::to($user)->send(new UserRegistered($user)); // synchronous
+        // Mail::to($user)->queue(new UserRegistered($user)); // asynchronous, masuk ke queue
+        $user->notify(new UserRegisteredNotification());
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Registration successful'], 201);
+        }
+
+        return redirect('/');
     }
 }

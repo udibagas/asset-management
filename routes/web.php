@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\{
     AssetController,
+    AuthController,
     CategoryController,
     HomeController,
     LocationController,
@@ -16,7 +17,7 @@ Route::get('/', [HomeController::class, 'home']);
 // Route::post('login', [AuthController::class, 'login'])->name('login.post');
 // Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 // Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
-// Route::post('register', [AuthController::class, 'register'])->name('register.post');
+Route::post('register', [AuthController::class, 'register'])->name('register.post');
 
 Route::middleware('auth')->group(function () {
 
